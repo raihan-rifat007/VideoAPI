@@ -1,0 +1,27 @@
+{
+  "name": "videoapi",
+  "version": "2.1.1",
+  "description": "YouTube search and media-resolution API with a premium liquid glass web interface.",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js",
+    "vercel-build": "echo 'No build step required'"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "dependencies": {
+    "btch-downloader": "latest",
+    "cors": "^2.8.5",
+    "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
+    "morgan": "^1.10.0",
+    "yt-search": "^2.13.1",
+    "youtubei.js": "18.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  },
+  "license": "MIT"
+}

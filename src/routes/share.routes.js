@@ -1,0 +1,22 @@
+const router = require('express').Router();
+const path = require('path');
+const escape = value => String(value || '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+router.get('/share', (req, res) => {
+  const title = escape(req.query.title || 'VideoAPI — YouTube Search & Media Tools');
+  const description = escape(req.query.description || 'Search YouTube, select a result, and resolve media formats with VideoAPI.');
+  const image = escape(`${req.protocol}://${req.get('host')}/og.png`);
+  const canonical = escape(`${req.protocol}://${req.get('host')}/share?title=${encodeURIComponent(req.query.title || 'VideoAPI')}`);
+  const shell = path.join(__dirname, '..', '..', 'public', 'index.html');
+  const fs = require('fs');
+  let html = fs.readFileSync(shell, 'utf8');
+  html = html.replace(/<title>[^<]*<\/title>/, `<title>${title}</title>`);
+  html = html.replace(/<meta property="og:title"[^>]*>/, `<meta property="og:title" content="${title}">`);
+  html = html.replace(/<meta property="og:description"[^>]*>/, `<meta property="og:description" content="${description}">`);
+  html = html.replace(/<meta property="og:image"[^>]*>/, `<meta property="og:image" content="${image}">`);
+  html = html.replace(/<meta name="twitter:title"[^>]*>/, `<meta name="twitter:title" content="${title}">`);
+  html = html.replace(/<meta name="twitter:description"[^>]*>/, `<meta name="twitter:description" content="${description}">`);
+  html = html.replace(/<meta name="twitter:image"[^>]*>/, `<meta name="twitter:image" content="${image}">`);
+  html = html.replace('</head>', `<link rel="canonical" href="${canonical}"></head>`);
+  res.type('html').send(html);
+});
+module.exports = router;
