@@ -25,7 +25,7 @@ function videoIdFromTarget(target) {
 
 function absoluteUrl(value) {
   if (typeof value !== 'string') return null;
-  return /^https?:\/\//i.test(value) ? value : null;
+  return /^https?:\/\
 }
 
 function normalizeBtch(result) {
@@ -81,7 +81,7 @@ async function resolveWithYoutubeJs(target) {
   const addFormat = async (format, type) => {
     if (!format) return;
     const mime = String(format.mime_type || format.mimeType || '');
-    const ext = /video\/mp4/i.test(mime) ? 'mp4' : /audio\/mp4/i.test(mime) ? 'm4a' : /audio\//i.test(mime) ? 'webm' : 'mp4';
+    const ext = /video\/mp4/i.test(mime) ? 'mp4' : /audio\/mp4/i.test(mime) ? 'm4a' : /audio\
     let url = absoluteUrl(format.url);
     if (!url && typeof format.decipher === 'function') {
       try {
@@ -106,7 +106,7 @@ async function resolveWithYoutubeJs(target) {
   }
   for (const format of adaptive) {
     const mime = String(format.mime_type || format.mimeType || '');
-    if (format.has_audio && /audio\//i.test(mime)) await addFormat(format, 'audio');
+    if (format.has_audio && /audio\
   }
 
   if (!formats.length) throw new Error('No downloadable YouTube formats were returned.');
